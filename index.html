@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mirror Receiver</title>
+    <link rel="stylesheet" href="css/receiver.css">
+</head>
+<body>
+    <!-- Splash screen shown while waiting for connection -->
+    <div id="splash">
+        <div class="splash-content">
+            <div class="logo-container">
+                <div class="logo-icon">📺</div>
+                <h1>Smart Mirror</h1>
+                <p class="tagline">Screen Mirroring</p>
+            </div>
+            <div class="status-container">
+                <div class="spinner"></div>
+                <p id="status-text">Waiting for connection...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video element for screen mirroring playback -->
+    <video id="mirror-video" autoplay muted playsinline></video>
+
+    <!-- Error overlay -->
+    <div id="error-overlay" class="hidden">
+        <div class="error-content">
+            <div class="error-icon">⚠️</div>
+            <p id="error-text">Connection lost</p>
+            <p id="error-sub">Attempting to reconnect...</p>
+        </div>
+    </div>
+
+    <!-- Cast Application Framework (CAF) Receiver SDK v3 -->
+    <script src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+
+    <!-- Application modules -->
+    <script src="js/mse-player.js"></script>
+    <script src="js/websocket-client.js"></script>
+    <script src="js/cast-receiver.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
