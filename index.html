@@ -21,7 +21,10 @@
         </div>
     </div>
 
-    <!-- Video element for screen mirroring playback -->
+    <!-- CAF built-in media player element — required for LOAD command handling -->
+    <cast-media-player id="cast-media-player"></cast-media-player>
+
+    <!-- Video element for screen mirroring (WebSocket) playback -->
     <video id="mirror-video" autoplay muted playsinline></video>
 
     <!-- Error overlay -->

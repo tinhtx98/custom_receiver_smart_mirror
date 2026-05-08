@@ -152,8 +152,37 @@
     // ============================
 
     function initCastReceiver() {
+        const context = cast.framework.CastReceiverContext.getInstance();
+        const playerManager = context.getPlayerManager();
+
+        // Listen for standard media load requests
+        playerManager.addEventListener(
+            cast.framework.events.EventType.LOAD_START,
+            (event) => {
+                console.log('[App] Standard media load started');
+                // Stop any active WebSocket mirroring session
+                stopMirroring();
+                hideSplash();
+                hideError();
+                videoEl.style.display = 'none'; // Hide mirror video
+                // cast-media-player will automatically show
+            }
+        );
+
+        playerManager.addEventListener(
+            cast.framework.events.EventType.MEDIA_STATUS,
+            (event) => {
+                if (event.mediaStatus && (event.mediaStatus.playerState === 'PLAYING' || event.mediaStatus.playerState === 'BUFFERING')) {
+                    hideSplash();
+                }
+            }
+        );
+
         castReceiver = new CastReceiver({
             onMirrorConnect: (wsUrl) => {
+                // Stop any standard media playback when mirroring starts
+                playerManager.stop();
+                videoEl.style.display = 'block'; // Show mirror video
                 startMirroring(wsUrl);
             },
             onMirrorStop: () => {
